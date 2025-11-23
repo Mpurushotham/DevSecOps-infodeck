@@ -1,0 +1,405 @@
+/* Diagram and Visualization Styles */
+.mermaid {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    overflow: auto;
+}
+
+/* Pipeline Visualization */
+.pipeline-container {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1rem 0;
+}
+
+.pipeline-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.pipeline-stage {
+    background: var(--bg-light);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    min-width: 120px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.pipeline-stage.active {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.pipeline-stage.security-critical {
+    border-color: var(--error-color);
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
+
+.pipeline-connector {
+    flex: 1;
+    height: 3px;
+    background: var(--border-color);
+    position: relative;
+}
+
+.pipeline-connector::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid var(--border-color);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+/* Threat Modeling Canvas */
+.threat-canvas {
+    background: var(--bg-white);
+    border-radius: 12px;
+    border: 2px dashed var(--border-color);
+    position: relative;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.canvas-tools {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: white;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: var(--shadow);
+    z-index: 10;
+}
+
+.tool-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: 6px;
+    margin: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tool-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.canvas-area {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.canvas-component {
+    position: absolute;
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 120px;
+    cursor: move;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.canvas-component:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.canvas-component.security-control {
+    border-color: var(--success-color);
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.canvas-component.vulnerable {
+    border-color: var(--error-color);
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
+
+.component-connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.connection-line {
+    stroke: var(--border-color);
+    stroke-width: 2;
+    marker-end: url(#arrowhead);
+}
+
+/* Threat Items */
+.threat-item {
+    background: white;
+    border-left: 4px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+}
+
+.threat-item.stride-spoofing {
+    border-left-color: #ef4444;
+}
+
+.threat-item.stride-tampering {
+    border-left-color: #f59e0b;
+}
+
+.threat-item.stride-repudiation {
+    border-left-color: #10b981;
+}
+
+.threat-item.stride-information-disclosure {
+    border-left-color: #3b82f6;
+}
+
+.threat-item.stride-dos {
+    border-left-color: #8b5cf6;
+}
+
+.threat-item.stride-elevation {
+    border-left-color: #ec4899;
+}
+
+.threat-risk {
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.threat-risk.critical {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.threat-risk.high {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.threat-risk.medium {
+    background: #f0f9ff;
+    color: #0369a1;
+}
+
+/* Architecture Controls */
+.architecture-controls {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.control-group {
+    margin-bottom: 1.5rem;
+}
+
+.control-group h5 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.layer-controls,
+.security-controls {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.layer-controls label,
+.security-controls label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.layer-controls label:hover,
+.security-controls label:hover {
+    background: var(--bg-light);
+}
+
+/* Scanner Results */
+.scanner-results {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.results-summary {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-item {
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--bg-light);
+}
+
+.summary-item.critical {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.summary-item.high {
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+}
+
+.summary-item.medium {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+}
+
+.summary-count {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.summary-item.critical .summary-count {
+    color: #dc2626;
+}
+
+.summary-item.high .summary-count {
+    color: #d97706;
+}
+
+.summary-item.medium .summary-count {
+    color: #0369a1;
+}
+
+.vulnerability-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.vulnerability-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.vulnerability-item.critical {
+    border-left: 4px solid #dc2626;
+}
+
+.vulnerability-item.high {
+    border-left: 4px solid #d97706;
+}
+
+.vulnerability-item.medium {
+    border-left: 4px solid #0369a1;
+}
+
+.vuln-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.vuln-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.vuln-severity {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.vuln-severity.critical {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.vuln-severity.high {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.vuln-severity.medium {
+    background: #f0f9ff;
+    color: #0369a1;
+}
+
+.vuln-location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.vuln-description {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.vuln-remediation {
+    padding: 1rem;
+    background: #f0f9ff;
+    border-radius: 6px;
+    border-left: 4px solid var(--primary-color);
+}
+
+/* Dashboard Metrics */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow:
