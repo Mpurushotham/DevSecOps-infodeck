@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevSecOps Implementation Guide | From Code to Cloud with Confidence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #2c3e50;
@@ -14,6 +15,7 @@
             --success: #27ae60;
             --warning: #f39c12;
             --danger: #e74c3c;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
         * {
@@ -27,6 +29,7 @@
             background-color: #f8f9fa;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -37,22 +40,39 @@
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient);
             color: white;
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
         }
         
         header h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         header p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
         }
         
         nav {
@@ -60,6 +80,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         nav ul {
@@ -78,197 +99,504 @@
             color: white;
             text-decoration: none;
             padding: 1rem 1.5rem;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::before {
+            width: 100%;
         }
         
         nav a:hover {
-            background-color: var(--secondary);
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         section {
-            padding: 3rem 0;
+            padding: 4rem 0;
             border-bottom: 1px solid #e0e0e0;
         }
         
         h2 {
             color: var(--primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
         }
         
         h3 {
             color: var(--secondary);
             margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
         }
         
         .card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
         }
         
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
         .comparison-table th, .comparison-table td {
             border: 1px solid #ddd;
-            padding: 12px;
+            padding: 15px;
             text-align: left;
         }
         
         .comparison-table th {
             background-color: var(--primary);
             color: white;
+            font-weight: 600;
         }
         
         .comparison-table tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f8f9fa;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #e9f7fe;
         }
         
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            gap: 2rem;
+            margin-top: 2rem;
         }
         
         .benefit-card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
             text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .benefit-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .benefit-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .architecture-diagram {
-            width: 100%;
-            max-width: 800px;
-            margin: 2rem auto;
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .flow-diagram {
-            width: 100%;
-            height: 400px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            margin: 2rem auto;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
         
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.5s;
+        }
+        
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .architecture-diagram {
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .architecture-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .flow-diagram {
+            width: 100%;
+            height: 500px;
+            background: white;
+            border-radius: 12px;
+            margin: 3rem auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
         .stage {
             position: absolute;
-            width: 120px;
-            height: 60px;
+            width: 140px;
+            height: 70px;
             background: var(--secondary);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
+            border-radius: 8px;
             font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+            z-index: 2;
+            text-align: center;
+            padding: 10px;
         }
         
-        .stage-1 { top: 50px; left: 50px; }
-        .stage-2 { top: 50px; left: 250px; }
-        .stage-3 { top: 50px; left: 450px; }
-        .stage-4 { top: 50px; left: 650px; }
-        .stage-5 { top: 200px; left: 50px; }
-        .stage-6 { top: 200px; left: 250px; }
-        .stage-7 { top: 200px; left: 450px; }
-        .stage-8 { top: 200px; left: 650px; }
+        .stage:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+        }
+        
+        .stage-1 { top: 50px; left: 50px; background: #3498db; animation: float 3s ease-in-out infinite; }
+        .stage-2 { top: 50px; left: 250px; background: #2ecc71; animation: float 3s ease-in-out infinite 0.2s; }
+        .stage-3 { top: 50px; left: 450px; background: #e74c3c; animation: float 3s ease-in-out infinite 0.4s; }
+        .stage-4 { top: 50px; left: 650px; background: #f39c12; animation: float 3s ease-in-out infinite 0.6s; }
+        .stage-5 { top: 200px; left: 50px; background: #9b59b6; animation: float 3s ease-in-out infinite 0.8s; }
+        .stage-6 { top: 200px; left: 250px; background: #1abc9c; animation: float 3s ease-in-out infinite 1s; }
+        .stage-7 { top: 200px; left: 450px; background: #d35400; animation: float 3s ease-in-out infinite 1.2s; }
+        .stage-8 { top: 200px; left: 650px; background: #34495e; animation: float 3s ease-in-out infinite 1.4s; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
         
         .connector {
             position: absolute;
-            height: 2px;
+            height: 3px;
             background: var(--secondary);
+            z-index: 1;
+            animation: flow 2s linear infinite;
         }
         
-        .connector-1 { top: 80px; left: 170px; width: 80px; }
-        .connector-2 { top: 80px; left: 370px; width: 80px; }
-        .connector-3 { top: 80px; left: 570px; width: 80px; }
-        .connector-4 { top: 230px; left: 170px; width: 80px; }
-        .connector-5 { top: 230px; left: 370px; width: 80px; }
-        .connector-6 { top: 230px; left: 570px; width: 80px; }
+        .connector::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid var(--secondary);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+        
+        @keyframes flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .connector-1 { top: 85px; left: 190px; width: 60px; }
+        .connector-2 { top: 85px; left: 390px; width: 60px; }
+        .connector-3 { top: 85px; left: 590px; width: 60px; }
+        .connector-4 { top: 235px; left: 190px; width: 60px; }
+        .connector-5 { top: 235px; left: 390px; width: 60px; }
+        .connector-6 { top: 235px; left: 590px; width: 60px; }
+        
+        .vertical-connector {
+            position: absolute;
+            width: 3px;
+            background: var(--secondary);
+            z-index: 1;
+            animation: flow 2s linear infinite;
+        }
+        
+        .vertical-connector::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -5px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid var(--secondary);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        
+        .v-connector-1 { top: 120px; left: 115px; height: 80px; }
+        .v-connector-2 { top: 120px; left: 315px; height: 80px; }
+        .v-connector-3 { top: 120px; left: 515px; height: 80px; }
+        .v-connector-4 { top: 120px; left: 715px; height: 80px; }
         
         .tool-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
         
         .tool-item {
             background: white;
-            border-left: 4px solid var(--secondary);
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--secondary);
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .tool-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         }
         
         .stride-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
         .stride-table th, .stride-table td {
             border: 1px solid #ddd;
-            padding: 12px;
+            padding: 15px;
             text-align: left;
         }
         
         .stride-table th {
             background-color: var(--primary);
             color: white;
+            font-weight: 600;
         }
         
         .stride-table tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f8f9fa;
+        }
+        
+        .stride-table tr:hover {
+            background-color: #e9f7fe;
         }
         
         .phase-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
         
         .phase-card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            border-top: 4px solid var(--secondary);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border-top: 5px solid var(--secondary);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .phase-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .phase-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .phase-card li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .phase-card li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .phase-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .animation-container {
+            width: 100%;
+            height: 300px;
+            background: white;
+            border-radius: 12px;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cloud {
+            position: absolute;
+            width: 150px;
+            height: 60px;
+            background: #ecf0f1;
+            border-radius: 50px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            animation: moveCloud 20s linear infinite;
+        }
+        
+        .cloud:before, .cloud:after {
+            content: '';
+            position: absolute;
+            background: #ecf0f1;
+            border-radius: 50%;
+        }
+        
+        .cloud:before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 20px;
+        }
+        
+        .cloud:after {
+            width: 40px;
+            height: 40px;
+            top: -20px;
+            right: 20px;
+        }
+        
+        .cloud-1 {
+            top: 50px;
+            animation-duration: 25s;
+            animation-delay: 0s;
+        }
+        
+        .cloud-2 {
+            top: 120px;
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+        
+        .cloud-3 {
+            top: 200px;
+            animation-duration: 30s;
+            animation-delay: 10s;
+        }
+        
+        @keyframes moveCloud {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(1000px); }
+        }
+        
+        .security-shield {
+            font-size: 5rem;
+            color: var(--secondary);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         footer {
-            background-color: var(--dark);
+            background: var(--gradient);
             color: white;
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
         }
         
         @media (max-width: 768px) {
@@ -281,7 +609,7 @@
             }
             
             .flow-diagram {
-                height: 600px;
+                height: 800px;
             }
             
             .stage-1 { top: 50px; left: 50px; }
@@ -290,12 +618,21 @@
             .stage-4 { top: 350px; left: 50px; }
             .stage-5 { top: 450px; left: 50px; }
             .stage-6 { top: 550px; left: 50px; }
+            .stage-7 { top: 650px; left: 50px; }
+            .stage-8 { top: 750px; left: 50px; }
             
-            .connector-1 { top: 110px; left: 95px; width: 2px; height: 40px; }
-            .connector-2 { top: 210px; left: 95px; width: 2px; height: 40px; }
-            .connector-3 { top: 310px; left: 95px; width: 2px; height: 40px; }
-            .connector-4 { top: 410px; left: 95px; width: 2px; height: 40px; }
-            .connector-5 { top: 510px; left: 95px; width: 2px; height: 40px; }
+            .connector-1, .connector-2, .connector-3, 
+            .connector-4, .connector-5, .connector-6 {
+                display: none;
+            }
+            
+            .v-connector-1 { top: 120px; left: 115px; height: 30px; }
+            .v-connector-2 { top: 220px; left: 115px; height: 30px; }
+            .v-connector-3 { top: 320px; left: 115px; height: 30px; }
+            .v-connector-4 { top: 420px; left: 115px; height: 30px; }
+            .v-connector-5 { top: 520px; left: 115px; height: 30px; }
+            .v-connector-6 { top: 620px; left: 115px; height: 30px; }
+            .v-connector-7 { top: 720px; left: 115px; height: 30px; }
         }
     </style>
 </head>
@@ -310,12 +647,12 @@
     
     <nav>
         <ul>
-            <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#devops-vs-devsecops">DevOps vs DevSecOps</a></li>
-            <li><a href="#benefits">Benefits</a></li>
-            <li><a href="#architecture">Architecture</a></li>
-            <li><a href="#implementation">Implementation</a></li>
-            <li><a href="#tools">Tools</a></li>
+            <li><a href="#introduction"><i class="fas fa-home"></i> Introduction</a></li>
+            <li><a href="#devops-vs-devsecops"><i class="fas fa-balance-scale"></i> DevOps vs DevSecOps</a></li>
+            <li><a href="#benefits"><i class="fas fa-chart-line"></i> Benefits</a></li>
+            <li><a href="#architecture"><i class="fas fa-project-diagram"></i> Architecture</a></li>
+            <li><a href="#implementation"><i class="fas fa-cogs"></i> Implementation</a></li>
+            <li><a href="#tools"><i class="fas fa-tools"></i> Tools</a></li>
         </ul>
     </nav>
     
@@ -325,6 +662,15 @@
             <div class="card">
                 <p>DevSecOps is a cultural and technical shift that integrates security practices into the DevOps workflow. It ensures that security is a shared responsibility throughout the entire IT lifecycle, rather than being a separate phase at the end.</p>
                 <p>This guide provides a comprehensive approach to implementing DevSecOps in your organization, with practical steps, tools, and best practices.</p>
+                
+                <div class="animation-container">
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="cloud cloud-1"></div>
+                    <div class="cloud cloud-2"></div>
+                    <div class="cloud cloud-3"></div>
+                </div>
             </div>
         </section>
         
@@ -343,29 +689,34 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Focus</td>
+                            <td><strong>Focus</strong></td>
                             <td>Speed and efficiency of software delivery</td>
                             <td>Secure software delivery with speed</td>
                         </tr>
                         <tr>
-                            <td>Security Integration</td>
+                            <td><strong>Security Integration</strong></td>
                             <td>Security as a separate phase or team</td>
                             <td>Security integrated throughout the lifecycle</td>
                         </tr>
                         <tr>
-                            <td>Responsibility</td>
+                            <td><strong>Responsibility</strong></td>
                             <td>Developers and Operations teams</td>
                             <td>Everyone is responsible for security</td>
                         </tr>
                         <tr>
-                            <td>Tools</td>
+                            <td><strong>Tools</strong></td>
                             <td>CI/CD, configuration management, monitoring</td>
                             <td>Security scanning, vulnerability assessment, compliance checks</td>
                         </tr>
                         <tr>
-                            <td>Culture</td>
+                            <td><strong>Culture</strong></td>
                             <td>Collaboration between Dev and Ops</td>
                             <td>Security mindset across all teams</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Risk Management</strong></td>
+                            <td>Reactive security measures</td>
+                            <td>Proactive security and risk assessment</td>
                         </tr>
                     </tbody>
                 </table>
@@ -376,34 +727,46 @@
             <h2>Benefits of DevSecOps</h2>
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <div class="benefit-icon">🔒</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
                     <h3>Enhanced Security</h3>
-                    <p>Security vulnerabilities are identified and addressed early in the development process.</p>
+                    <p>Security vulnerabilities are identified and addressed early in the development process, reducing risk and exposure.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">⚡</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
                     <h3>Faster Delivery</h3>
-                    <p>Automated security checks reduce manual reviews and speed up delivery cycles.</p>
+                    <p>Automated security checks reduce manual reviews and speed up delivery cycles without compromising security.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">💰</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
                     <h3>Cost Reduction</h3>
-                    <p>Fixing security issues early is significantly cheaper than post-deployment fixes.</p>
+                    <p>Fixing security issues early is significantly cheaper than post-deployment fixes, saving time and resources.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">🔄</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
                     <h3>Continuous Compliance</h3>
-                    <p>Automated compliance checks ensure regulatory requirements are consistently met.</p>
+                    <p>Automated compliance checks ensure regulatory requirements are consistently met across all deployments.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">🤝</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
                     <h3>Collaborative Culture</h3>
-                    <p>Breaks down silos between development, operations, and security teams.</p>
+                    <p>Breaks down silos between development, operations, and security teams, fostering better communication.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
                     <h3>Improved Quality</h3>
-                    <p>Security-focused development results in higher quality, more resilient applications.</p>
+                    <p>Security-focused development results in higher quality, more resilient applications with fewer vulnerabilities.</p>
                 </div>
             </div>
         </section>
@@ -413,34 +776,62 @@
             <div class="card">
                 <h3>High-Level Architecture Diagram</h3>
                 <div class="architecture-diagram">
-                    <!-- This would be replaced with an actual diagram in a real implementation -->
-                    <p style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 4px;">
-                        [DevSecOps Architecture Diagram Placeholder]
-                        <br><br>
-                        In a real implementation, this would show:<br>
-                        - Development environment with security tools<br>
-                        - CI/CD pipeline with security gates<br>
-                        - Production environment with runtime protection<br>
-                        - Monitoring and feedback loops
-                    </p>
+                    <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 8px; position: relative;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                            <div style="width: 30%; background: #3498db; color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+                                <h4>Development</h4>
+                                <p>SAST, Secure Coding, IDE Plugins</p>
+                            </div>
+                            <div style="width: 30%; background: #2ecc71; color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+                                <h4>CI/CD Pipeline</h4>
+                                <p>DAST, Container Scanning, Security Gates</p>
+                            </div>
+                            <div style="width: 30%; background: #e74c3c; color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+                                <h4>Operations</h4>
+                                <p>RASP, WAF, Monitoring</p>
+                            </div>
+                        </div>
+                        <div style="height: 2px; background: var(--gradient); margin: 2rem 0; position: relative;">
+                            <div style="position: absolute; top: -10px; left: 0; width: 100%; display: flex; justify-content: space-between;">
+                                <div style="width: 20px; height: 20px; background: var(--secondary); border-radius: 50%;"></div>
+                                <div style="width: 20px; height: 20px; background: var(--secondary); border-radius: 50%;"></div>
+                                <div style="width: 20px; height: 20px; background: var(--secondary); border-radius: 50%;"></div>
+                                <div style="width: 20px; height: 20px; background: var(--secondary); border-radius: 50%;"></div>
+                                <div style="width: 20px; height: 20px; background: var(--secondary); border-radius: 50%;"></div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <div style="width: 60%; background: #9b59b6; color: white; padding: 1rem; border-radius: 8px; text-align: center;">
+                                <h4>Feedback & Improvement</h4>
+                                <p>Security Metrics, Incident Response, Continuous Improvement</p>
+                            </div>
+                        </div>
+                        <div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(52, 152, 219, 0.1) 10px, rgba(52, 152, 219, 0.1) 20px); z-index: -1;"></div>
+                    </div>
                 </div>
                 
                 <h3>DevSecOps Pipeline Flow</h3>
                 <div class="flow-diagram">
-                    <div class="stage stage-1">Plan</div>
+                    <div class="stage stage-1">Plan & Design</div>
                     <div class="connector connector-1"></div>
-                    <div class="stage stage-2">Code</div>
+                    <div class="stage stage-2">Code & Commit</div>
                     <div class="connector connector-2"></div>
-                    <div class="stage stage-3">Build</div>
+                    <div class="stage stage-3">Build & Test</div>
                     <div class="connector connector-3"></div>
-                    <div class="stage stage-4">Test</div>
+                    <div class="stage stage-4">Security Scan</div>
+                    
+                    <div class="vertical-connector v-connector-1"></div>
+                    <div class="vertical-connector v-connector-2"></div>
+                    <div class="vertical-connector v-connector-3"></div>
+                    <div class="vertical-connector v-connector-4"></div>
+                    
                     <div class="stage stage-5">Release</div>
                     <div class="connector connector-4"></div>
                     <div class="stage stage-6">Deploy</div>
                     <div class="connector connector-5"></div>
                     <div class="stage stage-7">Operate</div>
                     <div class="connector connector-6"></div>
-                    <div class="stage stage-8">Monitor</div>
+                    <div class="stage stage-8">Monitor & Feedback</div>
                 </div>
                 
                 <h3>STRIDE Threat Modeling at Plan Stage</h3>
@@ -458,32 +849,32 @@
                         <tr>
                             <td><strong>S</strong>poofing</td>
                             <td>Impersonating users or systems</td>
-                            <td>Strong authentication, certificates</td>
+                            <td>Strong authentication, certificates, multi-factor authentication</td>
                         </tr>
                         <tr>
                             <td><strong>T</strong>ampering</td>
                             <td>Unauthorized modification of data</td>
-                            <td>Digital signatures, hashing</td>
+                            <td>Digital signatures, hashing, integrity checks</td>
                         </tr>
                         <tr>
                             <td><strong>R</strong>epudiation</td>
                             <td>Denying actions without proof</td>
-                            <td>Audit logs, digital signatures</td>
+                            <td>Audit logs, digital signatures, transaction records</td>
                         </tr>
                         <tr>
                             <td><strong>I</strong>nformation Disclosure</td>
                             <td>Exposing information to unauthorized parties</td>
-                            <td>Encryption, access controls</td>
+                            <td>Encryption, access controls, data classification</td>
                         </tr>
                         <tr>
                             <td><strong>D</strong>enial of Service</td>
                             <td>Disrupting service availability</td>
-                            <td>Resource monitoring, rate limiting</td>
+                            <td>Resource monitoring, rate limiting, redundancy</td>
                         </tr>
                         <tr>
                             <td><strong>E</strong>levation of Privilege</td>
                             <td>Gaining unauthorized capabilities</td>
-                            <td>Principle of least privilege, input validation</td>
+                            <td>Principle of least privilege, input validation, secure coding</td>
                         </tr>
                     </tbody>
                 </table>
@@ -499,10 +890,11 @@
                     <div class="phase-card">
                         <h4>Phase 1: Plan & Design</h4>
                         <ul>
-                            <li>Define security requirements</li>
+                            <li>Define security requirements and policies</li>
                             <li>Conduct threat modeling using STRIDE</li>
                             <li>Establish security metrics and KPIs</li>
-                            <li>Create security user stories</li>
+                            <li>Create security user stories and tasks</li>
+                            <li>Identify compliance requirements</li>
                         </ul>
                     </div>
                     
@@ -513,6 +905,7 @@
                             <li>Use pre-commit hooks for security checks</li>
                             <li>Perform peer code reviews with security focus</li>
                             <li>Use IDE security plugins</li>
+                            <li>Manage secrets securely</li>
                         </ul>
                     </div>
                     
@@ -520,9 +913,10 @@
                         <h4>Phase 3: Build & Test</h4>
                         <ul>
                             <li>Integrate SAST tools into CI pipeline</li>
-                            <li>Run dependency scanning</li>
+                            <li>Run dependency scanning for vulnerabilities</li>
                             <li>Perform security unit tests</li>
                             <li>Conduct DAST on test environments</li>
+                            <li>Container image scanning</li>
                         </ul>
                     </div>
                     
@@ -530,9 +924,10 @@
                         <h4>Phase 4: Release & Deploy</h4>
                         <ul>
                             <li>Scan container images for vulnerabilities</li>
-                            <li>Validate infrastructure as code</li>
-                            <li>Implement security gates in deployment</li>
-                            <li>Use signed artifacts</li>
+                            <li>Validate infrastructure as code security</li>
+                            <li>Implement security gates in deployment pipeline</li>
+                            <li>Use signed artifacts for integrity</li>
+                            <li>Automate compliance checks</li>
                         </ul>
                     </div>
                     
@@ -540,9 +935,10 @@
                         <h4>Phase 5: Operate & Monitor</h4>
                         <ul>
                             <li>Implement runtime application protection</li>
-                            <li>Monitor for security incidents</li>
-                            <li>Conduct regular security audits</li>
+                            <li>Monitor for security incidents and anomalies</li>
+                            <li>Conduct regular security audits and assessments</li>
                             <li>Establish incident response procedures</li>
+                            <li>Implement WAF and network security controls</li>
                         </ul>
                     </div>
                     
@@ -553,6 +949,7 @@
                             <li>Conduct retrospectives on security incidents</li>
                             <li>Update threat models based on new information</li>
                             <li>Continuously improve security practices</li>
+                            <li>Share learnings across teams</li>
                         </ul>
                     </div>
                 </div>
@@ -566,51 +963,51 @@
                 
                 <div class="tool-list">
                     <div class="tool-item">
-                        <h4>SAST Tools</h4>
+                        <h4><i class="fas fa-code"></i> SAST Tools</h4>
                         <p>Static Application Security Testing</p>
-                        <p>Examples: SonarQube, Checkmarx, Fortify</p>
+                        <p><strong>Examples:</strong> SonarQube, Checkmarx, Fortify</p>
                     </div>
                     
                     <div class="tool-item">
-                        <h4>DAST Tools</h4>
+                        <h4><i class="fas fa-bug"></i> DAST Tools</h4>
                         <p>Dynamic Application Security Testing</p>
-                        <p>Examples: OWASP ZAP, Burp Suite</p>
+                        <p><strong>Examples:</strong> OWASP ZAP, Burp Suite, Acunetix</p>
                     </div>
                     
                     <div class="tool-item">
-                        <h4>SCA Tools</h4>
+                        <h4><i class="fas fa-cube"></i> SCA Tools</h4>
                         <p>Software Composition Analysis</p>
-                        <p>Examples: Snyk, WhiteSource, Black Duck</p>
+                        <p><strong>Examples:</strong> Snyk, WhiteSource, Black Duck</p>
                     </div>
                     
                     <div class="tool-item">
-                        <h4>Container Security</h4>
+                        <h4><i class="fas fa-box"></i> Container Security</h4>
                         <p>Container image scanning</p>
-                        <p>Examples: Trivy, Clair, Anchore</p>
+                        <p><strong>Examples:</strong> Trivy, Clair, Anchore, Twistlock</p>
                     </div>
                     
                     <div class="tool-item">
-                        <h4>Infrastructure as Code Security</h4>
+                        <h4><i class="fas fa-server"></i> Infrastructure as Code Security</h4>
                         <p>IaC scanning and validation</p>
-                        <p>Examples: Checkov, Terrascan, Tfsec</p>
+                        <p><strong>Examples:</strong> Checkov, Terrascan, Tfsec</p>
                     </div>
                     
                     <div class="tool-item">
-                        <h4>Secrets Management</h4>
+                        <h4><i class="fas fa-key"></i> Secrets Management</h4>
                         <p>Secure storage of credentials</p>
-                        <p>Examples: HashiCorp Vault, AWS Secrets Manager</p>
+                        <p><strong>Examples:</strong> HashiCorp Vault, AWS Secrets Manager, Azure Key Vault</p>
                     </div>
                     
                     <div class="tool-item">
-                        <h4>Policy as Code</h4>
+                        <h4><i class="fas fa-gavel"></i> Policy as Code</h4>
                         <p>Automated policy enforcement</p>
-                        <p>Examples: Open Policy Agent, Kyverno</p>
+                        <p><strong>Examples:</strong> Open Policy Agent, Kyverno, Checkov</p>
                     </div>
                     
                     <div class="tool-item">
-                        <h4>Runtime Protection</h4>
+                        <h4><i class="fas fa-shield-alt"></i> Runtime Protection</h4>
                         <p>Application protection in production</p>
-                        <p>Examples: RASP, WAF</p>
+                        <p><strong>Examples:</strong> RASP, WAF, SIEM solutions</p>
                     </div>
                 </div>
             </div>
@@ -619,9 +1016,58 @@
     
     <footer>
         <div class="container">
-            <p>DevSecOps Implementation Guide &copy; 2023</p>
-            <p>From Code to Cloud with Confidence</p>
+            <div class="footer-content">
+                <h3>DevSecOps Implementation Guide</h3>
+                <p>From Code to Cloud with Confidence</p>
+                <p>&copy; 2023 | A Comprehensive Guide to Secure Software Delivery</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-medium"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards for animation
+        document.querySelectorAll('.card, .benefit-card, .phase-card, .tool-item').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
