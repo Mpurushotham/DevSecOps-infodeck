@@ -107,14 +107,10 @@ body {
     margin-top: 70px;
 }
 
-.hero-container {
-    max-width: 1200px;
+.hero-content {
+    text-align: center;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
 }
 
 .hero-title {
@@ -141,6 +137,8 @@ body {
 .hero-buttons {
     display: flex;
     gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -182,6 +180,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-top: 3rem;
 }
 
 .pipeline-stage {
@@ -233,41 +232,118 @@ body {
     color: var(--text-secondary);
 }
 
-/* Journey Section */
-.journey {
+/* Story Section */
+.story-section {
     padding: 80px 0;
     background: var(--bg-white);
 }
 
-.principles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+.story-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.principle-card {
+.timeline-item {
+    display: flex;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    margin-right: 2rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-marker.critical {
+    background: var(--error-color);
+}
+
+.timeline-marker.success {
+    background: var(--success-color);
+}
+
+.timeline-content {
+    flex: 1;
     background: var(--bg-light);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 12px;
-    text-align: center;
-    transition: transform 0.3s ease;
+    border-left: 4px solid var(--primary-color);
 }
 
-.principle-card:hover {
-    transform: translateY(-5px);
-}
-
-.principle-card i {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.principle-card h4 {
-    font-size: 1.25rem;
+.timeline-content h3 {
     margin-bottom: 1rem;
     color: var(--text-primary);
+}
+
+.incident-metrics {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metric {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    flex: 1;
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--error-color);
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.transformation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.transformation-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+}
+
+.transformation-card.before {
+    border-color: var(--error-color);
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
+
+.transformation-card.after {
+    border-color: var(--success-color);
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.transformation-card h4 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.transformation-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.transformation-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 /* Stages Section */
@@ -367,6 +443,7 @@ body {
     padding: 1.5rem;
     margin: 1rem 0;
     overflow-x: auto;
+    position: relative;
 }
 
 .code-snippet pre {
@@ -391,6 +468,13 @@ body {
     gap: 0.5rem;
     margin-bottom: 0.5rem;
     cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.checklist label:hover {
+    background: var(--bg-light);
 }
 
 .checklist input[type="checkbox"] {
@@ -415,6 +499,11 @@ body {
     padding: 2rem;
     border-radius: 12px;
     border-left: 4px solid var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.impl-card:hover {
+    transform: translateY(-5px);
 }
 
 .impl-card h3 {
@@ -429,62 +518,51 @@ body {
     color: var(--primary-color);
 }
 
-/* Roadmap Section */
-.roadmap {
+/* Tools Section */
+.tools {
     padding: 80px 0;
     background: var(--bg-light);
 }
 
-.roadmap-timeline {
+.tools-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-.roadmap-phase {
+.tool-category {
     background: var(--bg-white);
-    border-radius: 12px;
     padding: 2rem;
+    border-radius: 12px;
     box-shadow: var(--shadow);
 }
 
-.phase-header {
+.tool-category h3 {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--border-color);
+    color: var(--text-primary);
 }
 
-.phase-badge {
+.tool-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tool-item {
+    padding: 0.75rem 1rem;
+    background: var(--bg-light);
+    border-radius: 6px;
+    border-left: 3px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.tool-item:hover {
     background: var(--primary-color);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.phase-header h3 {
-    color: var(--text-primary);
-    margin: 0;
-}
-
-.phase-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.phase-item:last-child {
-    border-bottom: none;
-}
-
-.phase-item i {
-    color: var(--success-color);
-    width: 20px;
+    transform: translateX(5px);
 }
 
 /* Footer */
@@ -574,18 +652,8 @@ body {
         left: 0;
     }
 
-    .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
     .hero-title {
         font-size: 2rem;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
     }
 
     .pipeline-visual {
@@ -609,12 +677,29 @@ body {
         font-size: 2rem;
     }
 
-    .principles-grid {
+    .transformation-grid {
         grid-template-columns: 1fr;
     }
 
     .implementation-grid {
         grid-template-columns: 1fr;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+    }
+
+    .timeline-marker {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .incident-metrics {
+        flex-direction: column;
     }
 }
 
